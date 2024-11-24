@@ -1,0 +1,128 @@
+**senate.gov.ph**
+
+conf t
+vlan 27
+ name senate.gov.ph
+ exit
+Int vlan 27
+ no shut
+ ip add 172.16.0.128 255.255.255128
+ip dhcp excluded-add 172.16.0.129 172.16.0.142
+ip dhcp pool senate.gov.ph
+ network 172.16.0.128 255.255.255.128
+ default-router 172.16.0.129
+ domain-name senate.gov.ph
+ dns-server 10.11.1.10
+ option 150 ip 10.11.100.8
+
+
+A1: dhcpTagaPasa/vlanUser
+conf t
+ Int e0/0
+  swi acc vlan 27
+  do sh ip dhcp binding
+
+
+P1: Pahingi IP
+conf t
+ Int e0/0
+ ip add dhcp
+no shut
+
+
+
+
+
+**congress.gov.ph**
+
+D2:
+conf t
+vlan 8
+ name congress.gov.ph
+ exit
+Int vlan 8
+ no shut
+ ip add 172.16.16.1 255.255.248.0
+ip dhcp excluded-add 172.16.16.1 172.16.16.100
+ip dhcp pool congress.gov.ph
+ network 172.16.16.0 255.255.248.0
+ default-router 172.16.16.1
+ domain-name congress.gov.ph
+ dns-server 10.11.1.10
+ option 150 ip 10.11.100.8
+
+
+A2: dhcpTagaPasa/vlanUser
+conf t
+ Int e1/0
+  swi acc vlan 8
+  do sh ip dhcp binding
+
+
+P2: Pahingi IP
+conf t
+ Int e1/0
+ ip add dhcp
+no shut
+
+
+
+
+**army.mil.ph** /21
+D2:
+conf t
+vlan 77
+ name army.mil.ph
+ exit
+Int vlan 77
+ no shut
+ ip add 172.16.64.1 255.255.292.0
+ip dhcp excluded-add 172.16.64.1 172.16.64.100
+ip dhcp pool army.mil.ph
+ network 172.16.64.0 255.255.192.0
+ default-router 172.16.64.1
+ domain-name army.mil.ph
+ dns-server 10.11.1.10
+ option 150 ip 10.11.100.8
+
+Int e1/0
+  swi acc vlan 77
+  do sh ip dhcp binding
+
+
+S2: Pahingi IP
+conf t
+ Int e1/0
+ ip add dhcp
+no shut
+
+
+**dns.com** /29
+D1:
+conf t
+vlan 53
+ name dns.com
+ exit
+Int vlan 53
+ no shut
+ ip add 172.16.0.9 255.255.255.248
+ip dhcp excluded-add 172.16.0.9 172.16.0.12
+ip dhcp pool dns.com
+ network 172.16.0.8 255.255.255.248
+ default-router 172.16.0.9
+ domain-name dns.com
+ dns-server 10.11.1.10
+ option 150 ip 10.11.100.8
+
+Int e1/0
+  swi acc vlan 53
+  do sh ip dhcp binding
+
+
+S1: Pahingi IP
+conf t
+ Int e1/0
+ ip add dhcp
+no shut
+
+

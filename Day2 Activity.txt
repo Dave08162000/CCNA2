@@ -6,7 +6,7 @@ vlan 27
  exit
 Int vlan 27
  no shut
- ip add 172.16.0.128 255.255.255128
+ ip add 172.16.0.128 255.255.2551.28
 ip dhcp excluded-add 172.16.0.129 172.16.0.142
 ip dhcp pool senate.gov.ph
  network 172.16.0.128 255.255.255.128

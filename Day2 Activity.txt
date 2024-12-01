@@ -19,6 +19,7 @@ ip dhcp pool senate.gov.ph
 A1: dhcpTagaPasa/vlanUser
 conf t
  Int e0/0
+  switch mode acc
   swi acc vlan 27
   do sh ip dhcp binding
 
@@ -55,6 +56,7 @@ ip dhcp pool congress.gov.ph
 A2: dhcpTagaPasa/vlanUser
 conf t
  Int e1/0
+  switch mode acc
   swi acc vlan 8
   do sh ip dhcp binding
 
@@ -86,6 +88,7 @@ ip dhcp pool army.mil.ph
  option 150 ip 10.11.100.8
 
 Int e1/0
+  switch mode acc
   swi acc vlan 77
   do sh ip dhcp binding
 
@@ -115,6 +118,7 @@ ip dhcp pool dns.com
  option 150 ip 10.11.100.8
 
 Int e1/0
+  switch mode acc
   swi acc vlan 53
   do sh ip dhcp binding
 

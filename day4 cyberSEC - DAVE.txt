@@ -230,6 +230,96 @@ Top 5 UTM: 1.FortinetFortigate: syet
            2. Checkpoint
            3.4 Cisco
 
+!!Firewall!!
+
+conf t
+deny 50.6.160.0 0.255.255.255
+deny 155.137.92.0 0.255.255.255
+deny 184.168.125.0 0.255.255.255
+
+
+cavs 184.28.218.35
+lakers  99.83.183.221
+bulls 99.83.183.221
+mavs 192.124.249.3
+nets 65.19.58.135
+knicks 136.239.168.153
+
+
+96.126.123.244
+185.53.177.52
+37.48.65.149
+
+
+
+
+firewal profile 1: use extendedACL vs NamedExtendedAcl
+
+ex 1: you are the admin for pogo sites
+www.web310.com open onl 80, 443, ping
+www.web311.com open only 53, 443, SSH => 5 lines;
+	golden firewall formula: paloalto, fortinet, cisco,checkpoint
+	protocol   hacker  victim  port
+tcp, udp, icmp, IP Any	   web310
+
+conf t
+service timestamps log datetime
+service timestamps debug datetime
+logging 10.11.1.10
+logging trap 5
+no Ip access-list extended FWP1
+Ip access-list extended FWP1
+ Permit tcp Any host www.web310.com eq 80 log
+ permit tcp any host www.web310.com eq 443 log
+ permit icmp any host www.web310.com log
+ permit tcp any host www.web311.com eq 53 log
+ permit tcp any host www.web311.com eq 443 log
+ permit tcp any host www.web311.com eq 22 log
+int gi 3
+ ip access-group FWP1 in
+
+Remove Firewall:
+int gi 3
+ no ip access-group FWP1 in
+
+Takas:  Control+shift 6 bitaw press x
+
+
+ex 1: you are the admin for pogo sites
+www.web310.com open onl ssh, dns, http
+www.web311.com open only telnet, ssh, https, ping/icmp => 7 lines;
+	golden firewall formula: paloalto, fortinet, cisco,checkpoint
+	protocol   hacker  victim  port
+
+conf t
+no Ip access-list extended FWP1
+Ip access-list extended FWP2
+ Permit tcp Any host www.web310.com eq 22 log
+ permit tcp any host www.web310.com eq 53 log
+ permit tcp any host www.web310.com eq 80 log
+ permit tcp any host www.web311.com eq 23 log
+ permit tcp any host www.web311.com eq 443 log
+ permit tcp any host www.web311.com eq 22 log
+ permit icmp any host www.web311.com
+int gi 3
+ ip access-group FWP2 in
+
+
+ex 3: you are the admin for pogo sites
+www.web310.com open onl 443
+www.web311.com open only ping => 2 lines;
+	golden firewall formula: paloalto, fortinet, cisco,checkpoint
+	protocol   hacker  victim  port
+
+conf t
+no Ip access-list extended praning3
+Ip access-list extended praning3
+ Permit tcp Any host www.web310.com eq 443 log
+ permit icmp any host www.web311.com
+int gi 3
+ ip access-group praning3 in
+
+
 CYBERSECURITY TASK7: PROTECTING YOUR CORPORATE WEB APPS.
 EX.1 CREATE A FIREWALL POLICY NAMED Policy1 TO OPEN
 WWW.WEB8.COM HAS HTTP AND HTTPS AS OPEN
